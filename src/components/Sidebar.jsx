@@ -1,6 +1,17 @@
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Activity, Bell, LayoutDashboard, ListChecks, LogOut, Menu, PlusCircle, UserRound, X, CalendarCheck } from 'lucide-react'
+import {
+  Activity,
+  Bell,
+  LayoutDashboard,
+  ListChecks,
+  LogOut,
+  Menu,
+  PlusCircle,
+  UserRound,
+  X,
+  CalendarCheck,
+} from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import { useData } from '../context/DataContext'
 import mascot from '../assets/horse-mascot.svg'
@@ -16,9 +27,15 @@ const links = [
 
 export default function Sidebar({ open, setOpen }) {
   const { signOut, profile } = useAuth()
-  const { notifications } = useData()
-  const navigate = useNavigate()
+  const { notifications = [] } = useData()
+
   const unread = notifications.filter((n) => !n.is_read).length
+
+  function closeSidebarOnMobile() {
+    if (window.innerWidth < 900) {
+      setOpen(false)
+    }
+  }
 
   async function handleLogout() {
     setOpen(false)
@@ -28,7 +45,11 @@ export default function Sidebar({ open, setOpen }) {
 
   return (
     <>
-      <button className="sidebar-float-toggle" onClick={() => setOpen(true)} aria-label="Buka menu">
+      <button
+        className="sidebar-float-toggle"
+        onClick={() => setOpen(true)}
+        aria-label="Buka menu"
+      >
         <Menu size={22} />
       </button>
 
@@ -49,15 +70,25 @@ export default function Sidebar({ open, setOpen }) {
                   <small>Priority System</small>
                 </div>
               </div>
-              <button className="icon-button" onClick={() => setOpen(false)} aria-label="Tutup menu">
+
+              <button
+                className="icon-button"
+                onClick={() => setOpen(false)}
+                aria-label="Tutup menu"
+              >
                 <X size={18} />
               </button>
             </div>
 
             <div className="user-pill">
               <div className="avatar-small">
-                {profile?.avatar_data_url ? <img src={profile.avatar_data_url} alt="Avatar" /> : <CalendarCheck size={18} />}
+                {profile?.avatar_data_url ? (
+                  <img src={profile.avatar_data_url} alt="Avatar" />
+                ) : (
+                  <CalendarCheck size={18} />
+                )}
               </div>
+
               <div>
                 <strong>{profile?.username || 'CheckMate User'}</strong>
                 <small>{profile?.email}</small>
@@ -66,9 +97,19 @@ export default function Sidebar({ open, setOpen }) {
 
             <nav className="sidebar-nav">
               {links.map(({ to, label, icon: Icon }) => (
-                <NavLink key={to} to={to} onClick={() => window.innerWidth < 900 && setOpen(false)}>
+                <NavLink
+                  key={to}
+                  to={{
+                    pathname: to,
+                    search: '',
+                  }}
+                  end
+                  onClick={closeSidebarOnMobile}
+                  className={({ isActive }) => (isActive ? 'active' : '')}
+                >
                   <Icon size={20} />
                   <span>{label}</span>
+
                   {label === 'Notifikasi' && unread > 0 && <b>{unread}</b>}
                 </NavLink>
               ))}

@@ -45,9 +45,20 @@ export default function ActivityList() {
       </div>
 
       <div className="tab-bar glass-card">
-        <button className={status === 'remaining' ? 'active' : ''} onClick={() => setParams({ status: 'remaining' })}>Belum Selesai</button>
-        <button className={isHistory ? 'active' : ''} onClick={() => setParams({ status: 'history' })}>History</button>
-      </div>
+  <button
+    className={!isHistory ? 'active' : ''}
+    onClick={() => setParams({}, { replace: true })}
+  >
+    Belum Selesai
+  </button>
+
+  <button
+    className={isHistory ? 'active' : ''}
+    onClick={() => setParams({ status: 'history' }, { replace: true })}
+  >
+    History
+  </button>
+</div>
 
       {activities.length ? (
         <div className="item-list">

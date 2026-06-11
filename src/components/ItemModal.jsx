@@ -80,12 +80,40 @@ export default function ItemModal({ item, onClose, onUpdate, onDelete }) {
           </div>
 
           <div className="modal-priority-row">
-            <PriorityBadge item={form} />
-            <div className="deadline-pill">
-              <strong>{getDayLabel(daysLeft)}</strong>
-              <span>{formatDate(item.deadline_date)}</span>
+              {item.completed_at || item.status === 'completed' || daysLeft < 0 ? (
+                <>
+                  <div className={`history-status-badge ${daysLeft < 0 && !item.completed_at ? 'late' : 'done'}`}>
+                    {daysLeft < 0 && !item.completed_at ? 'Terlambat' : 'Selesai'}
+                  </div>
+
+                  <div className="deadline-pill history-date-pill">
+                    <strong>
+                      {daysLeft < 0 && !item.completed_at ? 'Tanggal Terlewat' : 'Tanggal Selesai'}
+                    </strong>
+                    <span>
+                      {item.completed_at
+                        ? new Date(item.completed_at).toLocaleString('id-ID', {
+                            day: '2-digit',
+                            month: 'long',
+                            year: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                          })
+                        : formatDate(item.deadline_date)}
+                    </span>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <PriorityBadge item={form} />
+
+                  <div className="deadline-pill">
+                    <strong>{getDayLabel(daysLeft)}</strong>
+                    <span>{formatDate(item.deadline_date)}</span>
+                  </div>
+                </>
+              )}
             </div>
-          </div>
 
           <div className="form-grid modal-form">
             <label>

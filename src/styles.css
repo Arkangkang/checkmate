@@ -560,3 +560,48 @@ select optgroup {
   color: #ffffff;
   box-shadow: 0 14px 30px rgba(169, 219, 114, 0.18);
 }
+
+.history-status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.history-status-badge.done {
+  color: #4e7837;
+  background: rgba(105, 146, 62, 0.16);
+}
+
+.history-status-badge.late {
+  color: #ffffff;
+  background: linear-gradient(135deg, rgba(44, 43, 41, 0.92), rgba(75, 72, 71, 0.78));
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.history-date-pill strong {
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.history-date-pill span {
+  font-weight: 800;
+}
+
+:root.dark .history-status-badge.done {
+  color: #a9db72;
+  background: rgba(169, 219, 114, 0.14);
+}
+
+:root.dark .history-status-badge.late {
+  color: #f5f2ea;
+  background: linear-gradient(135deg, rgba(30, 30, 28, 0.96), rgba(62, 59, 56, 0.82));
+}
