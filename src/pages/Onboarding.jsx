@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowRight, BarChart3, BellRing, CalendarDays, CheckCircle2, Sparkles } from 'lucide-react'
 import PageTransition from '../components/PageTransition'
@@ -19,6 +19,12 @@ const steps = [
 ]
 
 export default function Onboarding() {
+  const navigate = useNavigate()
+
+  function goToAuth() {
+    navigate('/auth')
+  }
+
   return (
     <PageTransition className="onboarding-page">
       <header className="landing-nav glass-card">
@@ -26,7 +32,9 @@ export default function Onboarding() {
           <img src={mascot} alt="CheckMate mascot" />
           <span>CheckMate</span>
         </Link>
-        <Link className="primary-button" to="/auth">Get Started <ArrowRight size={18} /></Link>
+        <button className="primary-button" type="button" onClick={goToAuth}>
+  Get Started <ArrowRight size={18} />
+</button>
       </header>
 
       <section className="hero-section">
@@ -37,8 +45,10 @@ export default function Onboarding() {
             CheckMate membantu kamu memilih langkah terbaik: tugas mana yang harus diserang dulu,
             kegiatan mana yang mulai mendesak, dan deadline mana yang sudah dekat.
           </p>
-          <div className="hero-actions">
-            <Link className="primary-button large" to="/auth">Mulai Sekarang <ArrowRight size={19} /></Link>
+          <div className="hero-actions"><button className="primary-button large" type="button" onClick={goToAuth}>
+  Mulai Sekarang <ArrowRight size={19} />
+</button>
+            
             <a className="ghost-button large" href="#fitur">Lihat Fitur</a>
           </div>
         </motion.div>
@@ -111,7 +121,9 @@ export default function Onboarding() {
           <h2>Atur langkahmu sebelum deadline melakukan checkmate.</h2>
           <p>Masuk, tambahkan tugas, lalu biarkan CheckMate membantu mengurutkan prioritasmu.</p>
         </div>
-        <Link className="primary-button large" to="/auth">Get Started <ArrowRight size={19} /></Link>
+        <button className="primary-button large" type="button" onClick={goToAuth}>
+  Get Started <ArrowRight size={19} />
+</button>
       </section>
     </PageTransition>
   )

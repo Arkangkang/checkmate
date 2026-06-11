@@ -21,8 +21,9 @@ export default function Sidebar({ open, setOpen }) {
   const unread = notifications.filter((n) => !n.is_read).length
 
   async function handleLogout() {
+    setOpen(false)
     await signOut()
-    navigate('/', { replace: true })
+    window.location.replace('/')
   }
 
   return (

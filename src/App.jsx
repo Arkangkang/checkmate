@@ -34,7 +34,7 @@ export default function App() {
       <BackgroundEffects />
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
-          <Route path="/" element={<PublicOnly><Onboarding /></PublicOnly>} />
+          <Route path="/" element={<Onboarding />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/app" element={<Protected><AppLayout /></Protected>}>
             <Route index element={<Navigate to="dashboard" replace />} />
